@@ -4,10 +4,12 @@
 <script src="game.js"></script>
 <script src="piece.js"></script>
 <script src="control.js"></script>
+<script src="shape.js"></script>
 
 
 <body style="display: flex; background-color: #0f2543;">
 	<canvas style="width: 395px;height: 776px; margin: auto; border: 5px solid rgb(0, 164, 208); box-shadow: 0px 0px 5px 4px #1aa1bb;" width="395px" height="776px" id="gc"></canvas>
+	<canvas style="width: 395px;height: 776px; margin: auto; border: 5px solid rgb(0, 164, 208); box-shadow: 0px 0px 5px 4px #1aa1bb;" width="395px" height="776px" id="gc2"></canvas>
 </body>
 
 <script>
@@ -15,17 +17,23 @@
 		//Create a 2d render context on page load
 		canvas = document.getElementById( "gc" );
 		ctx = canvas.getContext("2d");
+		
+		canvas2 = document.getElementById( "gc2" );
+		ctx2 = canvas2.getContext("2d");
 
 		//Render Constants.
 		RENDER_FPS = 60;
 		GAME_FPS = 1;
 
 		//View and Model objects
-		var b = new Board(ctx);
-		var g = new Game(b);
+		var g  = new Game(ctx);
+		var g2 = new Game(ctx2);
 
 		//Start the render and update cycles at their defined FPS
-		setInterval( b.renderSelf.bind(b) , 1000 / RENDER_FPS );
+		setInterval( g.board.renderSelf.bind(g.board) , 1000 / RENDER_FPS );
 		setInterval( g.update.bind(g) , 1000 / GAME_FPS );
+
+		setInterval( g2.board.renderSelf.bind(g2.board) , 1000 / RENDER_FPS );
+		setInterval( g2.update.bind(g2) , 1000 / GAME_FPS );
 	}
 </script>

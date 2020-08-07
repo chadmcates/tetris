@@ -10,9 +10,14 @@ class Controller {
 
             switch(evt.keyCode) 
             {
+                case 32: //Rotate
+                    if( this.piece.canRotate(board) )
+                        this.piece.rotate(board);
+                    break;
+
                 case 37: //Left
                     if ( this.piece.canMoveLeft(board) )
-                        this.move(this.piece, board, -1, 0);
+                        this.piece.move(-1, 0, board );
                     break;
 
                 case 38: // Up
@@ -21,16 +26,19 @@ class Controller {
 
                 case 39: //Right
                     if ( this.piece.canMoveRight(board) )
-                        this.move(this.piece, board, 1, 0);
+                    this.piece.move(1, 0, board );
                     break;
 
                 case 40: // Down
                     if( this.piece.canMoveDown(board) )
-                        this.move(this.piece, board, 0, 1);
+                    this.piece.move(0, 1, board );
                     else 
                         game.update(); //Force an early update to lock the piece in place
 
                     break;
+
+                case 67:
+                    board.clearLine(19, this.piece);
             }
         });
 
@@ -39,36 +47,6 @@ class Controller {
     //Updates the piece the controller refers to
     updatePiece(newpiece) {
         this.piece = newpiece;
-    }
-
-
-    //Move the piece relative to its current position
-    move(piece, board, x, y) {
-
-        //Erase current piece
-        for (var row = 0; row < 3; row++) {
-            for (var column = 0; column < 3; column++) {
-                if (piece.shape[row][column].filled) {
-                    board.grid[piece.y + row][piece.x + column].color = piece.color;
-                    board.grid[piece.y + row][piece.x + column].filled = false;
-                }
-            }
-        }
-
-        //Move it
-        piece.x += x;
-        piece.y += y;
-
-        //Redraw it
-        for (var row = 0; row < 3; row++) {
-            for (var column = 0; column < 3; column++) {
-                if (piece.shape[row][column].filled) {
-                    board.grid[piece.y + row][piece.x + column].color = piece.color;
-                    board.grid[piece.y + row][piece.x + column].filled = true;
-                }
-            }
-        }
-
     }
 
 }
