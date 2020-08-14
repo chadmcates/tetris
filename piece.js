@@ -254,11 +254,11 @@ class Piece {
 			for (var column = 0; column < 3; column++) {
 				if (this.shape[row][column].filled) { //Block in shape found
 					if(gboard.grid[row + this.y][column + this.x] === undefined ) { //Block in shape is out of bounds
-						Game.log("Out of bounds");
+						console.log("Out of bounds");
 						return true;
 					}
 					if (gboard.grid[row + this.y][column + this.x].locked) { //Locked block exists on game board at same position as piece block
-						Game.log("Overlap");
+						console.log("Overlap");
 						return true;
 					}
 				}
@@ -283,7 +283,7 @@ class Piece {
 		return width;
 	}
 
-	calcHeight() {
+ 	calcHeight() {
 		var height = 0;
 		for (var row = 0; row < 3; row++) {
 			for (var column = 0; column < 3; column++) {

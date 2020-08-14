@@ -8,9 +8,31 @@
 
 
 <body style="display: flex; background-color: #0f2543;">
-	<canvas style="width: 395px;height: 776px; margin: auto; border: 5px solid rgb(0, 164, 208); box-shadow: 0px 0px 5px 4px #1aa1bb;" width="395px" height="776px" id="gc"></canvas>
-	<canvas style="width: 395px;height: 776px; margin: auto; border: 5px solid rgb(0, 164, 208); box-shadow: 0px 0px 5px 4px #1aa1bb;" width="395px" height="776px" id="gc2"></canvas>
-</body>
+	<canvas
+	  style="
+		width: 395px;
+		height: 776px;
+		margin: auto;
+		border: 5px solid rgb(0, 164, 208);
+		box-shadow: 0px 0px 5px 4px #1aa1bb;
+	  "
+	  width="395px"
+	  height="776px"
+	  id="gc"
+	></canvas>
+	<canvas
+	  style="
+		width: 395px;
+		height: 776px;
+		margin: auto;
+		border: 5px solid rgb(0, 164, 208);
+		box-shadow: 0px 0px 5px 4px #1aa1bb;
+	  "
+	  width="395px"
+	  height="776px"
+	  id="gc2"
+	></canvas>
+  </body>
 
 <script>
 	window.onload = function() {
@@ -30,10 +52,11 @@
 		var g2 = new Game(ctx2);
 
 		//Start the render and update cycles at their defined FPS
-		setInterval( g.board.renderSelf.bind(g.board) , 1000 / RENDER_FPS );
-		setInterval( g.update.bind(g) , 1000 / GAME_FPS );
+		g.renderInterval = setInterval( g.board.renderSelf.bind(g.board) , 1000 / RENDER_FPS );
+		g.updateInterval = setInterval( g.update.bind(g) , 1000 / GAME_FPS );
 
-		setInterval( g2.board.renderSelf.bind(g2.board) , 1000 / RENDER_FPS );
-		setInterval( g2.update.bind(g2) , 1000 / GAME_FPS );
+
+		g2.renderInterval = setInterval( g2.board.renderSelf.bind(g2.board) , 1000 / RENDER_FPS );
+		g2.updateInterval = setInterval( g2.update.bind(g2) , 1000 / GAME_FPS );
 	}
 </script>
