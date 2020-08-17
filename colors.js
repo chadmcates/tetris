@@ -19,4 +19,23 @@ class Color {
         return "white";
     }
   }
+
+  static getDark(color) {
+    switch (color) {
+      case "red":
+        return "darkred";
+      case "orange":
+        return "darkorange";
+      case "yellow":
+        return "gold";
+      case "green":
+        return "darkgreen";
+      case "blue":
+        return "darkblue";
+      case "purple":
+        return "darkmagenta";
+      default: //White
+        return "darkgray";
+    }
+  }
 }

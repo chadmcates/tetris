@@ -1,5 +1,7 @@
 class Piece {
 
+	static lockSound = document.createElement("audio").src = "Clic01.mp3.flac";
+
     constructor(xEntrance) {
 
 		this.shape = Shape.getShape("t1");
