@@ -1,27 +1,32 @@
 class Piece {
 
-	static lockSound = document.createElement("audio").src = "Clic01.mp3.flac";
-
     constructor(xEntrance) {
 
 		this.shape = Shape.getShape("t1");
 		this.id = "t1";
 		this.color = Color.new();
-		this.width = 3;
-		this.height = 3;
+		this.width = this.calcWidth();
+		this.height = this.calcHeight();
 		this.xEmpty = 0;
 		this.yEmpty = 0;
         this.x = xEntrance;
 		this.y = 0;
-
-		//this.makeShape();
-		this.width = this.calcWidth();
-		this.height = this.calcHeight();
 	}
 
 	new() {
 		this.shape = Shape.new();
 		this.id = Shape.thisId;
+	}
+
+	drawTo(board) {
+		for (var row = 0; row < 3; row++) {
+            for (var column = 0; column < 3; column++) {
+                if(this.shape[row][column].filled) {
+                    board.grid[this.y + row][this.x + column].color = this.color;
+                    board.grid[this.y + row][this.x + column].filled = true;
+                }
+            }
+        }
 	}
 
 	touchingLeft() {

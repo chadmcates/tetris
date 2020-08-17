@@ -55,7 +55,7 @@ class Board {
 
 					//If block is not in a locked state then draw an internal block to indicate this
 					if ( !this.grid[row][column].locked ) {
-						this.drawctx.fillStyle = "#222222";
+						this.drawctx.fillStyle = Color.getDark(this.grid[row][column].color);
 						this.drawctx.fillRect((column * this.blockwidth + 8) + (column * this.gutter) + this.corneroffset,
 							(row * this.blockheight + 8) + (row * this.gutter) + this.corneroffset,
 							this.blockwidth - 16, this.blockheight - 16);

@@ -52,15 +52,15 @@ class Shape {
     }
 
     static rotate(id, direction, virtual) {
-        if(!virtual)
-            Shape.lastId = Shape.thisId;
-        var rotationNumber = parseInt( id.charAt(1), 10);
-        rotationNumber++;
-        if(rotationNumber == 5)
-            rotationNumber = 1;
+        if(!virtual) Shape.lastId = Shape.thisId;
+
+        var rotationNumber = parseInt( id.charAt(1), 10) + 1;
+
+        if(rotationNumber == 5) rotationNumber = 1;
+
         var newId = id.charAt(0) + rotationNumber.toString();
-        if(!virtual)
-            Shape.thisId = newId;
+
+        if(!virtual) Shape.thisId = newId;
 
         return Shape.getShape(newId);
     }

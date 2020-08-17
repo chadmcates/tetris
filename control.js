@@ -2,11 +2,13 @@ class Controller {
 
     constructor(piece, board, game) { //Params: [the first piece to control], [the game board]
 
-        //An internal variable that refers to the piece currently being controlled
+        //Internal variables that refer to whatever needs to be controlled
         this.piece = piece;
         this.board = board;
         this.game = game;
-        this.listenerFunction = this.handleKeyPress.bind(this); //Give the new bound function a reference so that we can use this to deregister it later
+        
+        //Give the new bound function a reference so that we can use this to deregister it later
+        this.listenerFunction = this.handleKeyPress.bind(this);
         
         //Creates an event based controller that controls whatever piece "this.piece" refers to
         this.listener = document.addEventListener("keydown", this.listenerFunction );
@@ -26,7 +28,7 @@ class Controller {
                     this.piece.move(-1, 0, this.board );
                 break;
 
-            case 38: // Up
+            case 38: //Up
                 while( !this.game.update() ) {} //Repeatedly force consecutive updates until the current piece locks in place
                 break;
 
@@ -35,15 +37,15 @@ class Controller {
                     this.piece.move(1, 0, this.board );
                 break;
 
-            case 40: // Down
-                if( this.piece.canMoveDown(this.board) )
-                this.piece.move(0, 1, this.board );
-                else 
+            case 40: //Down
+                if( this.piece.canMoveDown(this.board) ){
+                    this.piece.move(0, 1, this.board );
+                } else {
                     this.game.update(); //Force an early update to lock the piece in place
-
+                }
                 break;
 
-            case 67:
+            case 67: // "c"
                 this.board.clearLine(19, this.piece);
         }
     }
@@ -53,6 +55,7 @@ class Controller {
         this.piece = newpiece;
     }
 
+    //When a controller is no longer needed its event listener must be deregistered
     deregisterListener() {
         document.removeEventListener("keydown", this.listenerFunction );
     }

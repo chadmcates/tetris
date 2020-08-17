@@ -8,9 +8,9 @@ class Color {
       case 1:
         return "orange";
       case 2:
-        return "yellow";
+        return "gold";
       case 3:
-        return "green";
+        return "forestgreen";
       case 4:
         return "blue";
       case 5:
@@ -25,15 +25,15 @@ class Color {
       case "red":
         return "darkred";
       case "orange":
-        return "darkorange";
-      case "yellow":
-        return "gold";
-      case "green":
+        return "DarkGoldenRod";
+      case "gold":
+        return "DarkGoldenRod";
+      case "forestgreen":
         return "darkgreen";
       case "blue":
         return "darkblue";
       case "purple":
-        return "darkmagenta";
+        return "indigo";
       default: //White
         return "darkgray";
     }
