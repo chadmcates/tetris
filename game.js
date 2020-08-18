@@ -1,12 +1,18 @@
 class Game {
 
-    constructor(context) {
+    constructor(context, text) {
         //References to the Draw & Game-Tick intervals so they can be deregistered when a new game is created
         this.renderInterval;
         this.updateInterval;
 
         //A canvas draw context that a game will draw to
         this.context = context;
+
+        //An HTML text element to give feedback to
+        this.gameText = text;
+
+        //Game pause state
+        this.paused = false;
 
         //Set up Board, Piece, and Controller Objects
         this.board = new Board(this.context);
@@ -40,14 +46,7 @@ class Game {
             this.controller.updatePiece(this.piece);
             
             //Draw the new piece
-            for (var row = 0; row < 3; row++) {
-                for (var column = 0; column < 3; column++) {
-                    if(this.piece.shape[row][column].filled) {
-                        this.board.grid[this.piece.y + row][this.piece.x + column].color = this.piece.color;
-                        this.board.grid[this.piece.y + row][this.piece.x + column].filled = true;
-                    }
-                }
-            }
+            this.piece.drawTo(this.board);
 
             //Lets calling code know that a piece has been locked
             return true; 
@@ -72,5 +71,27 @@ class Game {
         
         //Update hasn't happened yet so draw the piece to the board immediately
         this.piece.drawTo(this.board);
+    }
+
+    pause() {
+        if(!this.paused) {
+            this.paused = true;
+            //this.controller.deregisterListener(); Cant do this because then you cant use the keyboard to unpause--------------<<<<<<<<<<<<<<<<<<<<
+            clearInterval(this.renderInterval);
+            clearInterval(this.updateInterval);
+            this.gameText.innerHTML = "Paused";
+            this.gameText.style.display = "block";            
+        }
+
+    }
+
+    unpause() {
+        if(this.paused){
+            this.paused = false
+            //this.controller = new Controller(this.piece, this.board, this);
+            this.renderInterval = setInterval( this.board.renderSelf.bind(this.board) , 1000 / RENDER_FPS );
+            this.updateInterval = setInterval( this.update.bind(this) , 1000 / GAME_FPS );
+            this.gameText.style.display = "none";
+        }
     }
 }

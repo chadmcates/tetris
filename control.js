@@ -16,38 +16,50 @@ class Controller {
 
     handleKeyPress(evt) {
 
-        switch(evt.keyCode) 
-        {
-            case 32: //Rotate
-                if( this.piece.canRotate(this.board) )
-                    this.piece.rotate(this.board);
-                break;
+        if( !this.game.paused ){
+            switch(evt.keyCode) 
+            {
+                case 32: //Rotate
+                    if( this.piece.canRotate(this.board) )
+                        this.piece.rotate(this.board);
+                    break;
 
-            case 37: //Left
-                if ( this.piece.canMoveLeft(this.board) )
-                    this.piece.move(-1, 0, this.board );
-                break;
+                case 37: //Left
+                    if ( this.piece.canMoveLeft(this.board) )
+                        this.piece.move(-1, 0, this.board );
+                    break;
 
-            case 38: //Up
-                while( !this.game.update() ) {} //Repeatedly force consecutive updates until the current piece locks in place
-                break;
+                case 38: //Up
+                    while( !this.game.update() ) {} //Repeatedly force consecutive updates until the current piece locks in place
+                    break;
 
-            case 39: //Right
-                if ( this.piece.canMoveRight(this.board) )
-                    this.piece.move(1, 0, this.board );
-                break;
+                case 39: //Right
+                    if ( this.piece.canMoveRight(this.board) )
+                        this.piece.move(1, 0, this.board );
+                    break;
 
-            case 40: //Down
-                if( this.piece.canMoveDown(this.board) ){
-                    this.piece.move(0, 1, this.board );
-                } else {
-                    this.game.update(); //Force an early update to lock the piece in place
-                }
-                break;
+                case 40: //Down
+                    if( this.piece.canMoveDown(this.board) ){
+                        this.piece.move(0, 1, this.board );
+                    } else {
+                        this.game.update(); //Force an early update to lock the piece in place
+                    }
+                    break;
 
-            case 67: // "c"
-                this.board.clearLine(19, this.piece);
+                case 67: // "c"
+                    this.game.pause();
+                    break;
+
+                case 86: // "v"
+                    this.game.unpause();
+                    //console.log("UnPaused");
+                    break;
+            }            
+        } else if( evt.keyCode == 86 ) { //Allow unpausing keyboard input through even though paused
+            this.game.unpause();
         }
+
+
     }
 
     //Updates the piece the controller refers to

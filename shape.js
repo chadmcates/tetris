@@ -3,21 +3,16 @@ class Shape {
     static lastId = "t1";
     static thisId = "t1";
 
-    static newShapeArray() { 
-        var shape = new Array(3);
-
-        for (var row = 0; row < 3; row++) {
-            
+    static newShapeArray(dimensions) { 
+        var shape = new Array(dimensions);
+        for (var row = 0; row < dimensions; row++) {
             //Create second dimension for each row
-            shape[row] = new Array(3);
-
+            shape[row] = new Array(dimensions);
             //Fill each row with Block objects
-            for (var column = 0; column < 3; column++) {
+            for (var column = 0; column < dimensions; column++) {
                 shape[row][column] = new Block();
-                //shape[row][column].color = piece.color;
             }
         }
-
         return shape;
     }
 
@@ -66,7 +61,7 @@ class Shape {
     }
     
     static getShape(id) {
-        var shape = Shape.newShapeArray();
+        var shape = Shape.newShapeArray(4);
 
         switch (id) {
 			case "t1":

@@ -81,17 +81,6 @@ class Board {
 
 	clearLine(line, piece) {
 
-		/* //Erase current piece
-		for (var row = 0; row < 3; row++) {
-			for (var column = 0; column < 3; column++) {
-				if(piece.shape[row][column].filled && !piece.shape[row][column].locked) { //Only erases a piece if it is not locked
-					this.grid[piece.y + row][piece.x + column].color = piece.color;
-					this.grid[piece.y + row][piece.x + column].filled = false;
-					this.grid[piece.y + row][piece.x + column].locked = false;
-				}
-			}
-		} */
-
 		//Copy lines above the line to be cleared downward
 		for (var row = line; row >= 0; row--) {
 			for (var column = 0; column < 10; column++) {
@@ -103,17 +92,7 @@ class Board {
 				
 			}
 		}
-		
-		/* //Redraw it
-		for (var row = 0; row < 3; row++) {
-			for (var column = 0; column < 3; column++) {
-				if(piece.shape[row][column].filled) {
-					this.grid[piece.y + row][piece.x + column].color = piece.color;
-					this.grid[piece.y + row][piece.x + column].filled = true;
-					this.grid[piece.y + row][piece.x + column].locked = piece.shape[row][column].locked;
-				}
-			}
-		} */
+
 	}
 }
 

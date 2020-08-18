@@ -8,7 +8,8 @@
 
 
 <body style="background-color: #0f2543;">
-	<h1 style="text-align: center;font-size: 5em;margin-bottom: 0;font-family: Arial, Helvetica, sans-serif;font-weight: lighter;">TETRIS</h1>
+	<h1 style="text-align: center;font-size: 4.5em;margin-bottom: 0;font-family: Arial, Helvetica, sans-serif;font-weight: lighter;">TETRIS</h1>
+	<h2 style="margin-bottom: 15px; margin-top: 0;text-align: center;">C:Pause   |   V:Un-Pause</h2>
 	<div style="display: flex;">
 		<div style="margin: auto;">
 
@@ -78,9 +79,13 @@
 		RENDER_FPS = 60;
 		GAME_FPS = 1;
 
+		//Get text elements and give them to the game to use
+		g1Text = document.getElementById("p1GameOver");
+		g2Text = document.getElementById("p2GameOver");
+
 		//View and Model objects
-		var g  = new Game(ctx);
-		var g2 = new Game(ctx2);
+		var g  = new Game(ctx , g1Text);
+		var g2 = new Game(ctx2, g2Text);
 
 		//Start the render and update cycles at their defined FPS
 		g.renderInterval = setInterval( g.board.renderSelf.bind(g.board) , 1000 / RENDER_FPS );
