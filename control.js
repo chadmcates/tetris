@@ -54,6 +54,10 @@ class Controller {
                     this.game.unpause();
                     //console.log("UnPaused");
                     break;
+
+                case 82: // "r"
+                    this.game.resetGame();
+                    break;
             }            
         } else if( evt.keyCode == 86 ) { //Allow unpausing keyboard input through even though paused
             this.game.unpause();

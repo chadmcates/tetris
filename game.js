@@ -38,7 +38,10 @@ class Game {
 
             if( this.piece.overlaps(this.board) ) {
                 console.log("Game Over");
-                this.resetGame();
+                this.piece.drawTo(this.board);//Draw the piece that caused the game over to the board
+                this.board.renderSelf();//Render the game board to reflect the offending piece before stopping
+                this.stop();
+                //this.resetGame();
                 return true;
             }
             
@@ -71,6 +74,9 @@ class Game {
         
         //Update hasn't happened yet so draw the piece to the board immediately
         this.piece.drawTo(this.board);
+
+        //Remove game over text
+        this.gameText.style.display = "none";
     }
 
     pause() {
@@ -93,5 +99,13 @@ class Game {
             this.updateInterval = setInterval( this.update.bind(this) , 1000 / GAME_FPS );
             this.gameText.style.display = "none";
         }
+    }
+
+    stop() {
+        //this.controller.deregisterListener(); Cant do this because then you cant use the keyboard to unpause--------------<<<<<<<<<<<<<<<<<<<<
+        clearInterval(this.renderInterval);
+        clearInterval(this.updateInterval);
+        this.gameText.innerHTML = "Game Over";
+        this.gameText.style.display = "block";   
     }
 }
