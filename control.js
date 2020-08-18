@@ -16,7 +16,7 @@ class Controller {
 
     handleKeyPress(evt) {
 
-        if( !this.game.paused ){
+        if( !this.game.paused && !this.game.isOver ){
             switch(evt.keyCode) 
             {
                 case 32: //Rotate
@@ -59,8 +59,10 @@ class Controller {
                     this.game.resetGame();
                     break;
             }            
-        } else if( evt.keyCode == 86 ) { //Allow unpausing keyboard input through even though paused
+        } else if( evt.keyCode == 86 && this.game.paused ) { //Allow unpausing keyboard input through even though paused
             this.game.unpause();
+        } else if( evt.keyCode == 82 && this.game.isOver ) {
+            this.game.resetGame();
         }
 
 

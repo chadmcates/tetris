@@ -14,6 +14,9 @@ class Game {
         //Game pause state
         this.paused = false;
 
+        //Game over state
+        this.isOver = false;
+
         //Set up Board, Piece, and Controller Objects
         this.board = new Board(this.context);
 
@@ -40,7 +43,7 @@ class Game {
                 console.log("Game Over");
                 this.piece.drawTo(this.board);//Draw the piece that caused the game over to the board
                 this.board.renderSelf();//Render the game board to reflect the offending piece before stopping
-                this.stop();
+                this.gameOver();
                 //this.resetGame();
                 return true;
             }
@@ -77,6 +80,9 @@ class Game {
 
         //Remove game over text
         this.gameText.style.display = "none";
+
+        //Reset the game over flag
+        this.isOver = false;
     }
 
     pause() {
@@ -101,11 +107,18 @@ class Game {
         }
     }
 
-    stop() {
+    gameOver() {
+        this.isOver = true; 
         //this.controller.deregisterListener(); Cant do this because then you cant use the keyboard to unpause--------------<<<<<<<<<<<<<<<<<<<<
         clearInterval(this.renderInterval);
         clearInterval(this.updateInterval);
         this.gameText.innerHTML = "Game Over";
-        this.gameText.style.display = "block";   
+        this.gameText.style.display = "block";
+    }
+
+    stop() {
+        //this.controller.deregisterListener(); Cant do this because then you cant use the keyboard to unpause--------------<<<<<<<<<<<<<<<<<<<<
+        clearInterval(this.renderInterval);
+        clearInterval(this.updateInterval);
     }
 }
